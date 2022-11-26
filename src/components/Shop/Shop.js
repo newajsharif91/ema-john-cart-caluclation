@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useLoaderData } from "react-router-dom";
-import { addToDb, getStoredCart } from "../../utilities/fakedb";
+import {
+  addToDb,
+  deleteShoppingCart,
+  getStoredCart,
+} from "../../utilities/fakedb";
 import Cart from "../Cart/Cart";
 import Product from "../Product/Product";
 import "./Shop.css";
@@ -10,6 +14,10 @@ const Shop = () => {
   const products = useLoaderData([]);
 
   const [cart, setCart] = useState([]);
+  const clearCart = () => {
+    setCart([]);
+    deleteShoppingCart();
+  };
 
   // useEffect(() => {
   //   fetch("products.json").then((res) =>
@@ -59,7 +67,7 @@ const Shop = () => {
         ))}
       </div>
       <div className="cart-container">
-        <Cart cart={cart}></Cart>
+        <Cart cart={cart} clearCart={clearCart}></Cart>
       </div>
     </div>
   );
